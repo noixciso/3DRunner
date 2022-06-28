@@ -1,30 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
 {
+    [SerializeField] private PlayerMover _mover;
+
     private Animator _animator;
-    [SerializeField] private PlayerMover _playerMover;
+    
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void OnEnable()
     {
-        _playerMover.Jumping += OnJump;
-        _playerMover.Running += OnRun;
+        _mover.Jumping += OnJump;
+        _mover.Running += OnRun;
+        _mover.RightTurn += OnRightTurn;
+        _mover.LeftTurn += OnLeftTurn;
+        _mover.FastFalling += OnFallQuickly;
     }
 
     private void OnDisable()
     {
-        _playerMover.Jumping -= OnJump;
-        _playerMover.Running -= OnRun;
-
-    }
-
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
+        _mover.Jumping -= OnJump;
+        _mover.Running -= OnRun;
+        _mover.RightTurn -= OnRightTurn;
+        _mover.LeftTurn -= OnLeftTurn;
+        _mover.FastFalling -= OnFallQuickly;
     }
 
     private void OnJump()
@@ -34,7 +37,22 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnRun()
     {
-        _animator.SetTrigger(States.isRunning);
+        _animator.SetBool(States.isRunning, true);
+    }
+
+    private void OnRightTurn()
+    {
+        _animator.SetTrigger(States.RightTurn);
+    }
+    
+    private void OnLeftTurn()
+    {
+        _animator.SetTrigger(States.LeftTurn);
+    }
+
+    private void OnFallQuickly()
+    {
+        _animator.SetTrigger(States.FastFalling);
     }
 }
 
@@ -42,4 +60,7 @@ public static class States
 {
     public const string isRunning = nameof(isRunning);
     public const string Jump = nameof(Jump);
+    public const string RightTurn = nameof(RightTurn);
+    public const string LeftTurn = nameof(LeftTurn);
+    public const string FastFalling = nameof(FastFalling);
 }

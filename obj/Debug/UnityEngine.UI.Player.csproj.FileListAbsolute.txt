@@ -1,0 +1,4 @@
+D:\IT\UnityProjects\Runner\obj\Debug\UnityEngine.UI.Player.csproj.AssemblyReference.cache
+D:\IT\UnityProjects\Runner\obj\Debug\UnityEngine.UI.Player.csproj.CoreCompileInputs.cache
+D:\IT\UnityProjects\Runner\obj\Debug\UnityEngine.UI.dll
+D:\IT\UnityProjects\Runner\obj\Debug\UnityEngine.UI.pdb

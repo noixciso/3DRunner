@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _health;
 
-    private PlayerMover _mover;
-    private int _score;
     private Vector3 _startPosition;
+    private int _score;
     private bool _isRespawn;
 
     public event UnityAction GameOver;
@@ -30,19 +26,11 @@ public class Player : MonoBehaviour
         private set => _isRespawn = value;
     }
 
-    public Vector3 StartPosition
-    {
-        get => _startPosition;
-        private set => _startPosition = value;
-    }
-
     private void Start()
     {
-        _mover = GetComponent<PlayerMover>();
-        StartPosition = gameObject.transform.position;
-
+        _startPosition = transform.position;
         Score = PlayerPrefs.GetInt(_score.ToString());
-        Score = 0;
+        ResetScore();
 
         HealthChanged?.Invoke(_health);
     }
@@ -62,26 +50,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ResetPlayer()
+    private void ResetScore()
     {
         Score = 0;
         ScoreChanged?.Invoke(Score);
-        //_mover.ResetPlayer();
     }
 
-    public void RespawnPlayer() //доработать
+    private void RespawnPlayer()
     {
         IsRespawn = true;
         gameObject.SetActive(false);
         Respawn?.Invoke();
-        gameObject.transform.position = StartPosition;
-        
+        transform.position = _startPosition;
     }
 
-    public void Die()
+    private void Die()
     {
         GameOver?.Invoke();
-        Time.timeScale = 0;
     }
 
     public void IncrementScore()

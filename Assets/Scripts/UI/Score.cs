@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -19,12 +16,6 @@ public class Score : MonoBehaviour
         _player.ScoreChanged -= OnScoreChanged;
     }
 
-
-    // private void Update()
-    // {
-    //     _score.text = ((int) (_player.position.z / 2)).ToString();
-    // }
-    
     private void OnScoreChanged(int score)
     {
         _score.text = score.ToString();

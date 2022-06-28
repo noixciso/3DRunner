@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Audio : MonoBehaviour
 {
     [SerializeField] private AudioSource _music;
-    [SerializeField] private PlayerCollisionHandler _playerCollisionHandler;
+    [SerializeField] private CupCollector _cupCollector;
     [SerializeField] private AudioSource _cupCollectionNotification;
 
     private void Start()
@@ -16,15 +13,15 @@ public class Audio : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerCollisionHandler.CupCollected += PlayCupCollectionNotification;
+        _cupCollector.Collected += PlayCollectionNotification;
     }
 
     private void OnDisable()
     {
-        _playerCollisionHandler.CupCollected -= PlayCupCollectionNotification;
+        _cupCollector.Collected -= PlayCollectionNotification;
     }
 
-    private void PlayCupCollectionNotification()
+    private void PlayCollectionNotification()
     {
         _cupCollectionNotification.Play();
     }

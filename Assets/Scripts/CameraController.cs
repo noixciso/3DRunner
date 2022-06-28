@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform _player;
-    private Vector3 _offset; // расстояние между игроком и камерой
+    
+    private Vector3 _offset;
 
     private void Start()
     {

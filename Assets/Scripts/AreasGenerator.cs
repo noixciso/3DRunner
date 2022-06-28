@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -27,7 +25,7 @@ public class AreasGenerator : MonoBehaviour
         _player.Respawn -= OnRespawn;
     }
 
-    private void Start()
+    private void Awake()
     {
         SpawnStartingAreas();
     }
@@ -70,7 +68,7 @@ public class AreasGenerator : MonoBehaviour
         _activeAreas.RemoveAt(0);
     }
     
-    public void DeleteAllAreas()
+    private void DeleteAllAreas()
     {
         foreach (var item in _activeAreas)
         {
@@ -80,14 +78,10 @@ public class AreasGenerator : MonoBehaviour
         _activeAreas.Clear();
     }
 
-    public void OnRespawn()
+    private void OnRespawn()
     {
         DeleteAllAreas();
-        Debug.Log($"позиция игрока: {_player.transform.position}" +
-                  $"стандартная позиция: {_playerPosition.position}");
-
         _spawnPosition = 0;
-        
         SpawnStartingAreas();
     }
 }

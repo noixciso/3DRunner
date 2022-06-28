@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Barrier : MonoBehaviour
 {
     private int _damage = 1;
 
-    public int Damage
+    private void OnTriggerEnter(Collider collision)
     {
-        get => _damage;
-       private set => _damage = value;
+        if (collision.TryGetComponent(out Player player))
+        {
+            player.ApplyDamage(_damage);
+        }
     }
 }

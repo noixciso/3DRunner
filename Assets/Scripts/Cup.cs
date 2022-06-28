@@ -1,17 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Cup : MonoBehaviour
 {
-    private Cup _cup;
-    // public float speed = 20f;
-    //
-    //
-    // void Update ()
-    // {
-    //     transform.Rotate(Vector3.up, speed * Time.deltaTime);
-    // }
-
+    private void Start()
+    {
+        transform.DOMove(new Vector3(transform.position.x, 2, transform.position.z), 1).SetLoops(-1, LoopType.Yoyo);
+    }
 }

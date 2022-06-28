@@ -35,8 +35,7 @@ public class Timer : MonoBehaviour
             }
         }
     }
-
-
+    
     private void Start()
     {
         CurrentTime = TimeStart;
