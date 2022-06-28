@@ -6,11 +6,6 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
 
     private Animator _animator;
-    
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
 
     private void OnEnable()
     {
@@ -28,6 +23,11 @@ public class PlayerAnimator : MonoBehaviour
         _mover.RightTurn -= OnRightTurn;
         _mover.LeftTurn -= OnLeftTurn;
         _mover.FastFalling -= OnFallQuickly;
+    }
+    
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
     }
 
     private void OnJump()

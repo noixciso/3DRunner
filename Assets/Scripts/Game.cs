@@ -9,11 +9,6 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _respawnScreen;
     [SerializeField] private Timer _timer;
     
-    private void Start()
-    {
-        Time.timeScale = 1;
-    }
-
     private void OnEnable()
     {
         _player.Respawn += OnRespawn;
@@ -22,6 +17,11 @@ public class Game : MonoBehaviour
     private void OnDisable()
     {
         _player.Respawn -= OnRespawn;
+    }
+    
+    private void Start()
+    {
+        Time.timeScale = 1;
     }
 
     private void OnRespawn()
@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(_timer.TimeStart);
         _respawnScreen.SetActive(false);
         _pauseButton.SetActive(true);
-        _player.SetActiveTrue();
+        _player.SetPlayerActive();
         _mover.RunSpeedIncrease();
     }
 }

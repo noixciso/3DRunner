@@ -12,6 +12,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private int _lineDistance;
 
     private const float _maxSpeed = 100;
+    private const float _lineShiftSpeed = 25;
+    private const float _currentSpeedIncrease = 1;
     private CharacterController _controller;
     private Vector3 _direction;
     private Vector3 _targetPosition;
@@ -36,15 +38,15 @@ public class PlayerMover : MonoBehaviour
         
         if (_side == SIDE.Left)
         {
-            Sidestep(-_lineDistance);
+            StepAside(-_lineDistance);
         }
         else if (_side == SIDE.Right)
         {
-            Sidestep(_lineDistance);
+            StepAside(_lineDistance);
         }
         
         Vector3 difference = _targetPosition - transform.position;
-        Vector3 moveDirection = difference.normalized * 25 * Time.deltaTime;
+        Vector3 moveDirection = difference.normalized * _lineShiftSpeed * Time.deltaTime;
 
         if (moveDirection.sqrMagnitude < difference.sqrMagnitude)
         {
@@ -88,7 +90,7 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    private void Sidestep(float lineDistance)
+    private void StepAside(float lineDistance)
     {
         _targetPosition = new Vector3(_targetPosition.x + lineDistance, transform.position.y, transform.position.z);
     }
@@ -115,9 +117,10 @@ public class PlayerMover : MonoBehaviour
 
     public bool IsGrounded()
     {
+        float maxRayDistance = 0.3f;
         Ray groundRay = new Ray(new Vector3(_controller.bounds.center.x, (_controller.bounds.center.y - _controller.bounds.extents.y) + 0.2f, _controller.bounds.center.z), Vector3.down);
-
-        return Physics.Raycast(groundRay, 0.2f + 0.1f);
+        
+        return Physics.Raycast(groundRay, maxRayDistance);
     }
 
     public void RunSpeedIncrease()
@@ -131,7 +134,7 @@ public class PlayerMover : MonoBehaviour
         
         if (_currentSpeed < _maxSpeed)
         {
-            _currentSpeed += 1;
+            _currentSpeed += _currentSpeedIncrease;
             StartCoroutine(SpeedIncrease());
         }
     }

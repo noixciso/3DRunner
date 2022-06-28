@@ -3,17 +3,6 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _health;
-
-    private Vector3 _startPosition;
-    private int _score;
-    private bool _isRespawn;
-
-    public event UnityAction GameOver;
-    public event UnityAction Respawn;
-    public event UnityAction<int> ScoreChanged;
-    public event UnityAction<int> HealthChanged;
-
     public int Score
     {
         get => _score;
@@ -25,9 +14,22 @@ public class Player : MonoBehaviour
         get => _isRespawn;
         private set => _isRespawn = value;
     }
+    
+    [SerializeField] private int _health;
+    
+    private Vector3 _startPosition;
+    private int _score;
+    private bool _isRespawn;
+    private int _minHealth;
+
+    public event UnityAction GameOver;
+    public event UnityAction Respawn;
+    public event UnityAction<int> ScoreChanged;
+    public event UnityAction<int> HealthChanged;
 
     private void Start()
     {
+        _minHealth = 0;
         _startPosition = transform.position;
         Score = PlayerPrefs.GetInt(_score.ToString());
         ResetScore();
@@ -40,11 +42,11 @@ public class Player : MonoBehaviour
         _health -= damage;
         HealthChanged?.Invoke(_health);
 
-        if (_health <= 0)
+        if (_health <= _minHealth)
         {
             Die();
         }
-        else if (_health > 0)
+        else if (_health > _minHealth)
         {
             RespawnPlayer();
         }
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
         ScoreChanged?.Invoke(Score);
     }
 
-    public void SetActiveTrue()
+    public void SetPlayerActive()
     {
         gameObject.SetActive(true);
         IsRespawn = false;

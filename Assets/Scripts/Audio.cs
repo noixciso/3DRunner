@@ -6,11 +6,6 @@ public class Audio : MonoBehaviour
     [SerializeField] private CupCollector _cupCollector;
     [SerializeField] private AudioSource _cupCollectionNotification;
 
-    private void Start()
-    {
-        _music.Play();
-    }
-
     private void OnEnable()
     {
         _cupCollector.Collected += PlayCollectionNotification;
@@ -19,6 +14,11 @@ public class Audio : MonoBehaviour
     private void OnDisable()
     {
         _cupCollector.Collected -= PlayCollectionNotification;
+    }
+    
+    private void Start()
+    {
+        _music.Play();
     }
 
     private void PlayCollectionNotification()

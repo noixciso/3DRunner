@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _timerText;
-    
-    private float _timeStart = 3;
-    private float _currentTime;
-
     public float TimeStart
     {
         get => _timeStart;
@@ -35,6 +30,11 @@ public class Timer : MonoBehaviour
             }
         }
     }
+    
+    [SerializeField] private TextMeshProUGUI _timerText;
+    
+    private float _timeStart = 3;
+    private float _currentTime;
     
     private void Start()
     {
