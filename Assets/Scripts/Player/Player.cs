@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     {
         _minHealth = 0;
         _startPosition = transform.position;
-        PlayerPrefs.GetInt(ScoreStorage.Score.ToString()); ////aaaaaaaaa
+        PlayerPrefs.GetInt(ScoreStorage.Score.ToString());
         ResetScore();
 
         HealthChanged?.Invoke(_health);
