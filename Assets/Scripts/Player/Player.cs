@@ -3,12 +3,6 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public int Score
-    {
-        get => _score;
-        private set => _score = value;
-    }
-
     public bool IsRespawn
     {
         get => _isRespawn;
@@ -18,7 +12,6 @@ public class Player : MonoBehaviour
     [SerializeField] private int _health;
     
     private Vector3 _startPosition;
-    private int _score;
     private bool _isRespawn;
     private int _minHealth;
 
@@ -31,7 +24,7 @@ public class Player : MonoBehaviour
     {
         _minHealth = 0;
         _startPosition = transform.position;
-        Score = PlayerPrefs.GetInt(_score.ToString());
+        PlayerPrefs.GetInt(ScoreStorage.Score.ToString()); ////aaaaaaaaa
         ResetScore();
 
         HealthChanged?.Invoke(_health);
@@ -54,8 +47,8 @@ public class Player : MonoBehaviour
 
     private void ResetScore()
     {
-        Score = 0;
-        ScoreChanged?.Invoke(Score);
+        ScoreStorage.Score = 0;
+        ScoreChanged?.Invoke(ScoreStorage.Score);
     }
 
     private void RespawnPlayer()
@@ -73,8 +66,8 @@ public class Player : MonoBehaviour
 
     public void IncrementScore()
     {
-        Score++;
-        ScoreChanged?.Invoke(Score);
+        ScoreStorage.Score++;
+        ScoreChanged?.Invoke(ScoreStorage.Score);
     }
 
     public void SetPlayerActive()

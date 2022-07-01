@@ -5,11 +5,9 @@ public class ViewScoreInMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text _scoreText;
     
-    private string _score = "_score";
-
     private void Start()
     {
-        int score = PlayerPrefs.GetInt(_score);
+        int score = PlayerPrefs.GetInt(ScoreStorage.Score.ToString());
         _scoreText.text = score.ToString();
     }
 }

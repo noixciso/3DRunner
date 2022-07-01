@@ -5,8 +5,6 @@ public class CupCollector : MonoBehaviour
 {
     [SerializeField] private Player _player;
     
-    private string _score = "_score";
-    
     public event UnityAction Collected;
 
     private void OnTriggerEnter(Collider collision)
@@ -16,7 +14,7 @@ public class CupCollector : MonoBehaviour
             Collected?.Invoke();
             _player.IncrementScore();
             collision.gameObject.SetActive(false);
-            PlayerPrefs.SetInt(_score, _player.Score);
+            PlayerPrefs.SetInt(ScoreStorage.Score.ToString(), ScoreStorage.Score);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMover : MonoBehaviour
 {
-    [SerializeField] private SIDE _side = SIDE.Mid;
+    [SerializeField] private Side _side = Side.Mid;
     [SerializeField] private float _currentSpeed;
     [SerializeField] private float _gravity;
     [SerializeField] private float _jumpForce;
@@ -36,11 +36,11 @@ public class PlayerMover : MonoBehaviour
     {
         _targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
         
-        if (_side == SIDE.Left)
+        if (_side == Side.Left)
         {
             StepAside(-_lineDistance);
         }
-        else if (_side == SIDE.Right)
+        else if (_side == Side.Right)
         {
             StepAside(_lineDistance);
         }
@@ -63,29 +63,29 @@ public class PlayerMover : MonoBehaviour
     {
         if (!goingRight)
         {
-            if (_side == SIDE.Mid)
+            if (_side == Side.Mid)
             {
                 LeftTurn?.Invoke();
-                _side = SIDE.Left;
+                _side = Side.Left;
             }
-            else if (_side == SIDE.Right)
+            else if (_side == Side.Right)
             {
                 LeftTurn?.Invoke();
-                _side = SIDE.Mid;
+                _side = Side.Mid;
             }
         }
 
         if (goingRight)
         {
-            if (_side == SIDE.Mid)
+            if (_side == Side.Mid)
             {
                 RightTurn?.Invoke();
-                _side = SIDE.Right;
+                _side = Side.Right;
             }
-            else if (_side == SIDE.Left)
+            else if (_side == Side.Left)
             {
                 RightTurn?.Invoke();
-                _side = SIDE.Mid;
+                _side = Side.Mid;
             }
         }
     }
@@ -140,7 +140,7 @@ public class PlayerMover : MonoBehaviour
     }
 }
 
-public enum SIDE
+public enum Side
 {
     Left,
     Mid,

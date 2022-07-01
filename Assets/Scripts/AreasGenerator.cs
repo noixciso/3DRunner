@@ -12,8 +12,9 @@ public class AreasGenerator : MonoBehaviour
     private List<GameObject> _activeAreas = new List<GameObject>();
 
     private float _spawnPosition = 0;
-    private float _tileLenght = 200;
-    private int _startTiles = 6;
+    private float _areaLenght = 200;
+    private int _partAreaLength = 130;
+    private int _startingCountAreas = 6;
 
     private void OnEnable()
     {
@@ -34,7 +35,7 @@ public class AreasGenerator : MonoBehaviour
     {
         if (_player.IsRespawn == false)
         {
-            if (_playerPosition.position.z  > _spawnPosition - (_startTiles * _tileLenght))
+            if (_playerPosition.position.z - _partAreaLength  > _spawnPosition - (_startingCountAreas * _areaLenght))
             {
                 Initialize(_playingAreas,Random.Range(0, _playingAreas.Length));
                 DeletePassedArea();
@@ -46,18 +47,15 @@ public class AreasGenerator : MonoBehaviour
     {
         GameObject area = Instantiate(areas[tileIndex], transform.forward * _spawnPosition, transform.rotation);
         _activeAreas.Add(area);
-        _spawnPosition += _tileLenght;
+        _spawnPosition += _areaLenght;
     }
 
     private void SpawnStartingAreas()
     {
-        for (int i = 0; i < _startTiles; i++)
+        Initialize(_startingAreas, Random.Range(0, _startingAreas.Length));
+        
+        for (int i = 1; i < _startingCountAreas; i++)
         {
-            if (i == 0)
-            {
-                Initialize(_startingAreas, Random.Range(0, _startingAreas.Length));
-            }
-
             Initialize(_playingAreas, Random.Range(0, _playingAreas.Length));
         }
     }
