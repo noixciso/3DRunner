@@ -2,19 +2,19 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Player : MonoBehaviour
-{
-    public bool IsRespawn
-    {
-        get => _isRespawn;
-        private set => _isRespawn = value;
-    }
-    
+{ 
     [SerializeField] private int _health;
     
     private Vector3 _startPosition;
     private bool _isRespawn;
     private int _minHealth;
 
+    public bool IsRespawn
+    {
+        get => _isRespawn;
+        private set => _isRespawn = value;
+    }
+    
     public event UnityAction GameOver;
     public event UnityAction Respawn;
     public event UnityAction<int> ScoreChanged;
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     {
         _minHealth = 0;
         _startPosition = transform.position;
-        PlayerPrefs.GetInt(ScoreStorage.Score.ToString()); ////aaaaaaaaa
+        PlayerPrefs.GetInt(ScoreStorage.Score.ToString());
         ResetScore();
 
         HealthChanged?.Invoke(_health);

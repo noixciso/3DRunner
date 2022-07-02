@@ -7,7 +7,6 @@ public class AreasGenerator : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private GameObject[] _startingAreas;
     [SerializeField] private GameObject[] _playingAreas;
-    [SerializeField] private Transform _playerPosition;
 
     private List<GameObject> _activeAreas = new List<GameObject>();
 
@@ -35,17 +34,23 @@ public class AreasGenerator : MonoBehaviour
     {
         if (_player.IsRespawn == false)
         {
-            if (_playerPosition.position.z - _partAreaLength  > _spawnPosition - (_startingCountAreas * _areaLenght))
+            if (IsOneAreaPassed())
             {
                 Initialize(_playingAreas,Random.Range(0, _playingAreas.Length));
                 DeletePassedArea();
             }
         }
     }
-
-    private void Initialize(GameObject[] areas, int tileIndex)
+    
+    private bool IsOneAreaPassed()
     {
-        GameObject area = Instantiate(areas[tileIndex], transform.forward * _spawnPosition, transform.rotation);
+        bool isPlayerPosition = _player.transform.position.z - _partAreaLength > _spawnPosition - (_startingCountAreas * _areaLenght);
+        return isPlayerPosition;
+    }
+
+    private void Initialize(GameObject[] areas, int areaIndex)
+    {
+        GameObject area = Instantiate(areas[areaIndex], transform.forward * _spawnPosition, transform.rotation);
         _activeAreas.Add(area);
         _spawnPosition += _areaLenght;
     }
